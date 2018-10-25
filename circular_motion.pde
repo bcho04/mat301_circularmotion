@@ -30,7 +30,7 @@ Object[] array = new Object[15];
 
 void setup(){
   size(1280, 720);
-  frameRate(60);
+  frameRate(30);
   /*
   for(int i=0;i<5;i++){
     array[i] = new Object(random(100,300),0,random(-2.5, 2.5),0);
@@ -39,14 +39,16 @@ void setup(){
     array[i] = new Object(random(30,50),0,random(-1,1),0,array[(i-5)%5])
   }
   */
-  /*
-  array[0] = new Object(random(100,300),0,random(-2.5,2.5),0,null);
-  for(int i=1;i<2;i++){
-    array[i] = new Object(random(50,150),0,random(-2.5,2.5),0,array[i-1]);
+  
+  array[0] = new Object(200,0,2,0,null);
+  for(int i=1;i<5;i++){
+    array[i] = new Object(40,0,8-i,0,array[i-1]);
   }
-  */
-  array[0] = new Object(200, 0, 2, 0);
+  
+  /*array[0] = new Object(200, 0, 2, 0);
   array[1] = new Object(40, 0, 8, 0, array[0]);
+  */
+  println(array[1].radius*sin(radians(array[1].theta))+array[0].radius*sin(radians(array[0].theta)));
 }
 
 void draw(){
@@ -57,6 +59,7 @@ void draw(){
   ellipseMode(CENTER);
   for(int i=0;i<array.length;i++){
     if(array[i] == null) continue;
+    array[i].update();
     pushMatrix();
     // We are given Object.radius and Object.theta, and we need to find x and y.
     if(array[i].orbit == null){
@@ -80,10 +83,10 @@ void draw(){
     float argument = array[i].theta;
     
     ellipse(magnitude*cos(radians(argument)), magnitude*sin(radians(argument)), 8, 8);
-    if(i==1){
+    if(i==4){
       println(magnitude*sin(radians(argument))+array[0].radius*sin(radians(array[0].theta)));
+      //array[0].theta, argument
     }
-    array[i].update();
     popMatrix();
   }
 }
