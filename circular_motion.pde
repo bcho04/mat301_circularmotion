@@ -30,7 +30,7 @@ Object[] array = new Object[15];
 
 void setup(){
   size(1280, 720);
-  frameRate(30);
+  frameRate(60);
   /*
   for(int i=0;i<5;i++){
     array[i] = new Object(random(100,300),0,random(-2.5, 2.5),0);
